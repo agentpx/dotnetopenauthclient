@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            
+        </div>
+    </section>
+}
+<h3>Choose one of the following demos:</h3>
+<ol class="round">
+    <li class="one">
+        <h5>Google OAuth2</h5>
+        Test Google OAuth 2
+        @Html.ActionLink("Login with Google OAuth2", "GoogleAuthentication");
+    </li>
+
+    <li class="two">
+        <h5>Google OAuth2 + OpenId</h5>
+        Test Google OAuth2 + OpenId 
+         @Html.ActionLink("Click here to test Google OAuth2 + OpenId", "AuthenticatedGoogle");
+    </li>
+
+    <li class="three">
+        <h5>Google OAuth2 Server Status</h5>
+        You can easily find a web hosting company that offers the right mix of features
+        and price for your applications.
+         @Html.ActionLink("Click here to test Google OAuth2", "AuthenticateGoogle");
+    </li>
+</ol>
