@@ -45,7 +45,7 @@ namespace GoogleOAuth2Client.Controllers
 
             if (authorizationState == null)
             {
-                googleClient.RequestUserAuthorization(new string[] { GoogleClient.Scopes.UserInfo.Email, GoogleClient.Scopes.UserInfo.Profile }, new Uri("http://localhost:59941/Home/GoogleAuthentication"));
+                googleClient.RequestUserAuthorization(new string[] { GoogleClient.Scopes.UserInfo.Email, GoogleClient.Scopes.UserInfo.Profile });
                 
 
             }
