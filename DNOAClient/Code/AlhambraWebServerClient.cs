@@ -24,8 +24,9 @@ namespace DNOAClient.Code
         public AlhambraWebServerClient()
             : base(AlhambraDescription)
         {
-            ClientIdentifier = ConfigurationManager.AppSettings["alhambraIdentifier"];
-            ClientCredentialApplicator.PostParameter(ConfigurationManager.AppSettings["alhambraSecret"]);
+            //ClientIdentifier = ConfigurationManager.AppSettings["alhambraIdentifier"];
+            //ClientCredentialApplicator = ClientCredentialApplicator.NetworkCredential(ConfigurationManager.AppSettings["alhambraSecret"]);
+            //ClientCredentialApplicator = ClientCredentialApplicator.PostParameter(ConfigurationManager.AppSettings["alhambraSecret"]);
         }
 
         public OAuth2Graph GetUserInfo(string authToken)
@@ -58,7 +59,7 @@ namespace DNOAClient.Code
                 /// <summary>
                 /// Complies with the OpenId Connect Protocol
                 /// </summary>
-                public const string OpenId = "openId";
+                public const string OpenId = "openid";
 
 
                 public const string Subject = "sub";
@@ -78,6 +79,13 @@ namespace DNOAClient.Code
                 /// Gain read-only access to the user's email address.
                 /// </summary>
                 public const string Email = "email";
+
+                /// <summary>
+                /// This scope requests that an OAuth 2.0 Refresh Token be 
+                /// issued that can be used to obtain an access token that grants access to the End-User's
+                /// UserInfo EndPoint even when the user is not present
+                /// </summary>
+                public const string OfflineAccess = "offline_access";
             }
         }
 

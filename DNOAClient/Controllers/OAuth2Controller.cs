@@ -10,37 +10,82 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 using System.Security.Cryptography.X509Certificates;
+using System.Configuration;
 
 namespace DNOAClient.Controllers
 {
     public class OAuth2Controller : Controller
     {
-        private AlhambraWebServerClient client = new AlhambraWebServerClient();
+      
 
-        public ActionResult OAuth()
+        private IAuthorizationState authorizationState = null;
+
+        private static readonly AlhambraWebServerClient client = new AlhambraWebServerClient
+        {
+            ClientIdentifier = ConfigurationManager.AppSettings["alhambraIdentifier"],
+            ClientCredentialApplicator = ClientCredentialApplicator.PostParameter(ConfigurationManager.AppSettings["alhambraSecret"]),
+        };
+
+
+        //[AllowAnonymous]
+        //public ActionResult Authorize()
+        //{
+
+        //    authorizationState = client.ProcessUserAuthorization(this.Request);
+
+        //    if (authorizationState == null)
+        //    {
+        //        client.RequestUserAuthorization(new string[] { AlhambraWebServerClient.Scopes.ConnectId.OpenId, AlhambraWebServerClient.Scopes.ConnectId.OfflineAccess });
+        //    }
+        //    else
+        //    {
+        //        var httpClient = new HttpClient();
+        //        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authorizationState.AccessToken);
+
+        //        var tokenInfoUrl = "https://localhost:44301/OAuth2/TokenInfo";
+
+        //        OAuth2TokenInfo tokenInfo = httpClient.GetAsync(tokenInfoUrl).Result.Content.ReadAsAsync<OAuth2TokenInfo>().Result;
+
+        //        var tv = new AlhambraTokenValidator();
+        //        tv.ValidateToken(tokenInfo, "NATURE");
+
+        //        string info = tokenInfo.User + ", " + tokenInfo.Audience;
+
+        //        return Content(info);
+        //    }
+        //    return null;
+        //}
+
+
+        [AllowAnonymous]
+        public ActionResult Alhambra()
         {
             if (string.IsNullOrEmpty(Request.QueryString["code"]))
             {
-                return InitAuth();
+                return InitAuthAlhambra();
             }
             else
             {
-                return Callback();
+                return AlhambraCallback();
             }
         }
 
-        public ActionResult InitAuth()
+        [AllowAnonymous]
+        public ActionResult InitAuthAlhambra()
         {
+
             var state = new AuthorizationState();
-            var uri = Request.Url.AbsoluteUri;
-            uri = RemoveQueryStringFromUri(uri);
-            state.Callback = new Uri(uri);
-
+            //var uri = Request.Url.AbsoluteUri;
+            //uri = RemoveQueryStringFromUri(uri);
+            //state.Callback = new Uri(uri);
+            state.Callback = new Uri("https://localhost:44301/OAuth2/AlhambraCallback");
             state.Scope.Add(AlhambraWebServerClient.Scopes.ConnectId.OpenId);
-
+            state.Scope.Add(AlhambraWebServerClient.Scopes.ConnectId.OfflineAccess);
             var r = client.PrepareRequestUserAuthorization(state);
             return r.AsActionResult();
         }
+
+
 
         private static string RemoveQueryStringFromUri(string uri)
         {
@@ -52,13 +97,14 @@ namespace DNOAClient.Controllers
             return uri;
         }
 
-        public ActionResult Callback()
+        [AllowAnonymous]
+        public ActionResult AlhambraCallback()
         {
             var auth = client.ProcessUserAuthorization(this.Request);
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", auth.AccessToken);
 
-            var tokenInfoUrl = "http://localhost/oauth2/TokenInfo";
+            var tokenInfoUrl = "https://localhost:44301/OAuth2/TokenInfo";
 
             OAuth2TokenInfo tokenInfo = httpClient.GetAsync(tokenInfoUrl).Result.Content.ReadAsAsync<OAuth2TokenInfo>().Result;
 
@@ -81,9 +127,14 @@ namespace DNOAClient.Controllers
 
             var resourceServer = new ResourceServer(analyzer);
 
-            var token = resourceServer.GetAccessToken(Request, new[] { AlhambraWebServerClient.Scopes.ConnectId.OpenId });
+            var token = resourceServer.GetAccessToken(Request, new[] { AlhambraWebServerClient.Scopes.ConnectId.OpenId, AlhambraWebServerClient.Scopes.ConnectId.OfflineAccess });
 
-            return Json(new {audience =token.ClientIdentifier, User=token.User }, JsonRequestBehavior.AllowGet);
+            return Json(new {audience=token.ClientIdentifier, User=token.User }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UserInfo()
+        {
+            return View();
         }
 
         #region Helpers
