@@ -13,11 +13,15 @@ namespace DNOAClient.Code
 {
     public class AlhambraWebServerClient : WebServerClient
     {
+
+        private const string CLIENT_ADDRESS = "https://localhost:44301";
+        private const string SERVER_ADDRESS = "https://localhost:44300";
+
         private static readonly AuthorizationServerDescription AlhambraDescription = new AuthorizationServerDescription
         {
-            TokenEndpoint = new Uri("https://localhost:44300/OAuth2/Token"),
-            AuthorizationEndpoint = new Uri("https://localhost:44300/OAuth2/Auth"),
-            //// RevokeEndpoint = new Uri("https://localhost:44300/OAuth2/Revoke"),
+            TokenEndpoint = new Uri( SERVER_ADDRESS + "/OAuth2/Token"),
+            AuthorizationEndpoint = new Uri( SERVER_ADDRESS + "/OAuth2/Auth"),
+            //// RevokeEndpoint = new Uri( SERVER_ADDRESS +  "/OAuth2/Revoke"),
             ProtocolVersion = ProtocolVersion.V20
         };
 
@@ -31,7 +35,7 @@ namespace DNOAClient.Code
 
         public OAuth2Graph GetUserInfo(string authToken)
         {
-            var userInfoUrl = "https://localhost:44300/OAuth2/UserInfo";
+            var userInfoUrl = SERVER_ADDRESS + "/OAuth2/UserInfo";
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authToken);
             var response = httpClient.GetAsync(userInfoUrl).Result;
@@ -39,15 +43,15 @@ namespace DNOAClient.Code
             return userInfo;
         }
 
-        public OAuth2TokenInfo GetTokenInfo(string accessToken)
-        {
-            var verificationUri = "https://localhost:44300/OAuth2/TokenInfo?access_token=" + accessToken;
-            var httpClient = new HttpClient();
+        //public OAuth2TokenInfo GetTokenInfo(string accessToken)
+        //{
+        //    var verificationUri = SERVER_ADDRESS + "/OAuth2/TokenInfo?access_token=" + accessToken;
+        //    var httpClient = new HttpClient();
 
-            var response = httpClient.GetAsync(verificationUri).Result;
-            OAuth2TokenInfo tokenInfo = response.Content.ReadAsAsync<OAuth2TokenInfo>().Result;
-            return tokenInfo;
-        }
+        //    var response = httpClient.GetAsync(verificationUri).Result;
+        //    OAuth2TokenInfo tokenInfo = response.Content.ReadAsAsync<OAuth2TokenInfo>().Result;
+        //    return tokenInfo;
+        //}
 
         public static class Scopes
         {

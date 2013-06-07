@@ -9,7 +9,7 @@ namespace DNOAClient.Code
     [DataContract]
     public class OAuth2Graph
     {
-        [DataMember(Name = "id")]
+        [DataMember(Name = "sub")]
         public string Id { get; set; }
         
         [DataMember(Name = "given_name")]

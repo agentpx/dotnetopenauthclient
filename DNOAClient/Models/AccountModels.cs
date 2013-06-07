@@ -8,6 +8,7 @@ using System.Web.Security;
 
 namespace DNOAClient.Models
 {
+
     public class UsersContext : DbContext
     {
         public UsersContext()
@@ -27,7 +28,7 @@ namespace DNOAClient.Models
         public string UserName { get; set; }
     }
 
- 
+
 
     public class LocalPasswordModel
     {
@@ -59,9 +60,6 @@ namespace DNOAClient.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-     
     }
-
- 
  
 }

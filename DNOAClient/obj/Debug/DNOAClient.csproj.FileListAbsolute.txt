@@ -252,6 +252,6 @@ C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\bin\ru\
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.csproj.App.config
-C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.csprojResolveAssemblyReference.cache
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.dll
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.pdb
+C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.csprojResolveAssemblyReference.cache

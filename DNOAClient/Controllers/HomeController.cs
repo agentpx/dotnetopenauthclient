@@ -8,9 +8,10 @@ namespace DNOAClient.Controllers
 {
     public class HomeController : Controller
     {
+       // [Authorize]
         public ActionResult Index()
         {
-            ViewBag.Message = "Relying Party Website";
+            ViewBag.Message = "Nature Client Server";
 
             return View();
         }

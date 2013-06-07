@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DNOAClient.Code;
+using DotNetOpenAuth.OAuth2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +25,12 @@ namespace DNOAClient
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            //Application.Add("Authorization",null);
+            //Application.Add("Token",null);
+            //Application.Add("",null);
+
         }
+
     }
 }

@@ -9,13 +9,16 @@ namespace DNOAClient.Code
     [DataContract]
     public class OAuth2TokenInfo
     {
-        [DataMember(Name = "audience")]
-        public string Audience { get; set; }
+       [DataMember(Name="access_token")]
+        public string AccessToken { get; set; }
+
+       [DataMember(Name="token_type")]
+       public string TokenType { get; set; }
 
         [DataMember(Name = "expires_in")]
         public string ExpiresIn { get; set; }
 
-        [DataMember(Name="user")]
-        public string User { get; set; }
+        [DataMember(Name="refresh_token")]
+        public string RefreshToken { get; set; }
     }
 }
