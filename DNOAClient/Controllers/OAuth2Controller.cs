@@ -110,9 +110,27 @@ namespace DNOAClient.Controllers
            // string userInfo = httpClient.GetAsync(userInfoUrl).Result.Content.ReadAsStringAsync().Result;
 
             OAuth2Graph userinfo = client.GetUserInfo(auth.AccessToken);
-            string result = JsonConvert.SerializeObject(userinfo);
-            return Content(result);
+            //string result = JsonConvert.SerializeObject(userinfo);
+            //return Content(result);
+
+           string valuesOfForm =null;
+
+            foreach(string s in Request.Form.AllKeys)
+            {
+                valuesOfForm = valuesOfForm + ", " + s + ":"  +  Request.Form[s];
+            }
+
+            return Content("Access Token: " + auth.AccessToken + 
+                "<br/>Refresh Token: " + auth.RefreshToken +
+                "<br/>Expires In: " + auth.AccessTokenExpirationUtc +
+                "<br/>Issued At: " + auth.AccessTokenIssueDateUtc +
+                "<br/>Values: " + valuesOfForm +
+                "<br/> Content Type: " + Request.ContentType +
+                "<br/>Input Stream: " + Request.InputStream.ToString());
+
         }
+
+        
 
         //[AllowAnonymous]
         //public ActionResult TokenInfo()

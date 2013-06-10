@@ -255,3 +255,4 @@ C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Deb
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.dll
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.pdb
 C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\obj\Debug\DNOAClient.csprojResolveAssemblyReference.cache
+C:\Users\Jorge.Alvarado\Documents\Github\dotnetopenauthclient\DNOAClient\bin\Microsoft.IdentityModel.Tokens.JWT.dll
