@@ -51,8 +51,9 @@ namespace DNOAClient.Controllers
             var state = new AuthorizationState();
       
             state.Callback = new Uri(CLIENT_ADDRESS + "/OAuth2/AlhambraCallback");
-            state.Scope.Add(AlhambraWebServerClient.Scopes.ConnectId.OpenId);
-            state.Scope.Add(AlhambraWebServerClient.Scopes.ConnectId.OfflineAccess);
+            state.Scope.Add(OpenIdConnectScopes.OpenId);
+            state.Scope.Add(OpenIdConnectScopes.OfflineAccess);
+            state.Scope.Add(OpenIdConnectScopes.Email);
             var r = client.PrepareRequestUserAuthorization(state);
             return r.AsActionResult();
         }

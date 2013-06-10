@@ -18,9 +18,12 @@ namespace DNOAClient.Controllers
     public class OpenIdConnectController : Controller
     {
 
+<<<<<<< HEAD
         private const string CLIENT_ADDRESS = "https://localhost:44301";
         private const string SERVER_ADDRESS = "https://localhost:44300";
 
+=======
+>>>>>>> completed openidconnect validations
         // private IAuthorizationState authorizationState = null;
 
         private static readonly AlhambraWebServerClient client = new AlhambraWebServerClient
@@ -39,10 +42,17 @@ namespace DNOAClient.Controllers
 
             var state = new AuthorizationState();
             
+<<<<<<< HEAD
             state.Callback = new Uri(CLIENT_ADDRESS + "/OpenIdConnect/AlhambraCallback");
             state.Scope.Add(AlhambraWebServerClient.Scopes.ConnectId.OpenId);
             state.Scope.Add(AlhambraWebServerClient.Scopes.ConnectId.OfflineAccess);
             state.Scope.Add(AlhambraWebServerClient.Scopes.ConnectId.Profile);
+=======
+            state.Callback = new Uri(Config.CLIENT_ADDRESS + "/OpenIdConnect/AlhambraCallback");
+            state.Scope.Add(OpenIdConnectScopes.OpenId);
+            state.Scope.Add(OpenIdConnectScopes.OfflineAccess);
+            state.Scope.Add(OpenIdConnectScopes.Profile);
+>>>>>>> completed openidconnect validations
             var r = client.PrepareRequestUserAuthorization(state);
             
             return r.AsActionResult();
@@ -76,17 +86,28 @@ namespace DNOAClient.Controllers
             //string accessToken = Request.QueryString["access_token"];
             //authorizationState = client.ProcessUserAuthorization(this.Request);
 
+<<<<<<< HEAD
             var tokenInfoUrl = SERVER_ADDRESS + "/OpenIdConnect/Token";
 
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", ConfigurationManager.AppSettings["alhambraSecret"]);
+=======
+            var tokenInfoUrl = Config.SERVER_ADDRESS + "/OpenIdConnect/Token";
+
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",  ConfigurationManager.AppSettings["alhambraSecret"]);
+>>>>>>> completed openidconnect validations
             
             
 
             Dictionary<string, string> formVals = new Dictionary<string, string>();
             formVals.Add("grant_type", "authorization_code");
             formVals.Add("code", input.code);
+<<<<<<< HEAD
             formVals.Add("redirect_uri", CLIENT_ADDRESS + "/OpenIdConnect/AlhambraCallback");
+=======
+            formVals.Add("redirect_uri", Config.CLIENT_ADDRESS + "/OpenIdConnect/AlhambraCallback");
+>>>>>>> completed openidconnect validations
 
 
 
@@ -134,9 +155,14 @@ namespace DNOAClient.Controllers
                 "<br/>id_token: " + result.id_token +
                 "<br/>issuer: " + token.Issuer +
                 "<br/>Audience: " + token.Audience +
+<<<<<<< HEAD
                 "<br/>Actor: " + token.Actor +
                 "<br/>Valid From: " + token.ValidFrom +
                 "<br/>Valid To: " + token.ValidTo);
+=======
+                "<br/>Valid From: " + token.ValidFrom.ToString("yyyy-MM-ddThh:mm:ssZ") +
+                "<br/>Valid To: " + token.ValidTo.ToString("yyyy-MM-ddThh:mm:ssZ"));
+>>>>>>> completed openidconnect validations
         }
 
         //[AllowAnonymous]
@@ -179,6 +205,7 @@ namespace DNOAClient.Controllers
             return View(graph);
         }
 
+<<<<<<< HEAD
         #region Helpers
 
         private static X509Certificate2 LoadCert(string thumbprint)
@@ -194,6 +221,9 @@ namespace DNOAClient.Controllers
         }
 
         #endregion
+=======
+   
+>>>>>>> completed openidconnect validations
 
 
     }
