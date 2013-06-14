@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Relying Party Website";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                 Relying Party Website
+            </p>
+        </div>
+    </section>
+}
+<h3>Try the following OAuth2 Providers</h3>
+<ol class="round">
+    <li class="one">
+        <h5>Alhambra OAuth2 Provider</h5>
+        Use OAuth2 to authenticate with Alhambra
+        @Html.ActionLink("Login with Alhambra","InitAuthAlhambra","OpenIdConnect",null,null)
+    </li>
+
+ 
+
+ 
+</ol>
