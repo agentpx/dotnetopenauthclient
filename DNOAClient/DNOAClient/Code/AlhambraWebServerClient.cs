@@ -13,8 +13,11 @@ namespace DNOAClient.Code
         private static readonly AuthorizationServerDescription AlhambraDescription = new AuthorizationServerDescription
         {
 
-            TokenEndpoint = new Uri(Config.SERVER_ADDRESS + "/OpenIdConnect/Token"),
-            AuthorizationEndpoint = new Uri(Config.SERVER_ADDRESS + "/OpenIdConnect/Auth"),
+            //TokenEndpoint = new Uri(Config.SERVER_ADDRESS + "/OpenIdConnect/Token"),
+            //AuthorizationEndpoint = new Uri(Config.SERVER_ADDRESS + "/OpenIdConnect/Auth"),
+
+            TokenEndpoint = new Uri(Config.SERVER_ADDRESS + "/OAuth2/Token"),
+            AuthorizationEndpoint = new Uri(Config.SERVER_ADDRESS + "/OAuth2/Auth"),
 
             //// RevokeEndpoint = new Uri( SERVER_ADDRESS +  "/OAuth2/Revoke"),
             ProtocolVersion = ProtocolVersion.V20
@@ -31,7 +34,7 @@ namespace DNOAClient.Code
         public OAuth2Graph GetUserInfo(string authToken)
         {
 
-            var userInfoUrl = Config.SERVER_ADDRESS + "/OpenIdConnect/UserInfo";
+            var userInfoUrl = Config.SERVER_ADDRESS + "/OAuth2/UserInfo";
 
 
 

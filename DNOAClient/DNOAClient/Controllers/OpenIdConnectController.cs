@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using DotNetOpenAuth.Messaging;
 using System.Net.Http.Headers;
 using DNOAClient.Models;
+using System.Text;
 
 namespace DNOAClient.Controllers
 {
@@ -34,15 +35,9 @@ namespace DNOAClient.Controllers
 
             var state = new AuthorizationState();
 
-
             state.Callback = new Uri(Config.CLIENT_ADDRESS + "/OpenIdConnect/AlhambraCallback");
             state.Scope.Add(OpenIdConnectScopes.OpenId);
-            state.Scope.Add(OpenIdConnectScopes.OfflineAccess);
-            state.Scope.Add(OpenIdConnectScopes.Profile);
-
-            state.Callback = new Uri(Config.CLIENT_ADDRESS + "/OpenIdConnect/AlhambraCallback");
-            state.Scope.Add(OpenIdConnectScopes.OpenId);
-            state.Scope.Add(OpenIdConnectScopes.OfflineAccess);
+        //    state.Scope.Add(OpenIdConnectScopes.OfflineAccess);
             state.Scope.Add(OpenIdConnectScopes.Profile);
 
             var r = client.PrepareRequestUserAuthorization(state);
@@ -79,14 +74,15 @@ namespace DNOAClient.Controllers
             //authorizationState = client.ProcessUserAuthorization(this.Request);
 
 
-            var tokenInfoUrl = Config.SERVER_ADDRESS + "/OpenIdConnect/Token";
+            var tokenInfoUrl = Config.SERVER_ADDRESS + "/OAuth2/Token";
 
             var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", ConfigurationManager.AppSettings["alhambraSecret"]);
 
-
-
-
+            string decodedNetworkCredentials = string.Format("{0}:{1}", ConfigurationManager.AppSettings["alhambraIdentifier"], ConfigurationManager.AppSettings["alhambraSecret"]);
+            string encodedNetworkCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(decodedNetworkCredentials));
+             
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encodedNetworkCredentials);
+             
             Dictionary<string, string> formVals = new Dictionary<string, string>();
             formVals.Add("grant_type", "authorization_code");
             formVals.Add("code", input.code);
